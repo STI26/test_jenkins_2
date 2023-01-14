@@ -13,7 +13,7 @@ pipeline {
                             filter: "provider-1*.json",
                             selector: specific("${i}"),
                             optional: true,
-                            target: 'all_json']
+                            target: 'all_json'
                         );
                         echo "result: ${res}"
                     }
