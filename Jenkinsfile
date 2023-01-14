@@ -7,33 +7,9 @@ pipeline {
                 script {
                     buildNumber = Jenkins.instance.getItem('test_build').lastSuccessfulBuild.number
 
-                    for(int i = buildNumber; i >= 0; i--) {
-                        try {
-                            copyArtifacts(
-                                projectName: 'test_build',
-                                filter: "provider-1*.json",
-                                selector: specific("${i}"),
-                                target: 'all_json'
-                            );
-                            break;
-                        } catch(Exception e) {
-                            echo "provider-1* not found in build #${i}"
-                        }
-                    }
+                    copyLatestArtifact('provider-1', 'test_build', buildNumber, 'all_json')
                     
-                    for(int i = buildNumber; i >= 0; i--) {
-                        try {
-                            copyArtifacts(
-                                projectName: 'test_build',
-                                filter: "provider-2*.json",
-                                selector: specific("${i}"),
-                                target: 'all_json'
-                            );
-                            break;
-                        } catch(Exception e) {
-                            echo "provider-2* not found in build #${i}"
-                        }
-                    }
+                    copyLatestArtifact('provider-2', 'test_build', buildNumber, 'all_json')
 
                     sh 'tar -czf all_json.tgz all_json/'
                     archiveArtifacts 'all_json.tgz'
@@ -47,6 +23,22 @@ pipeline {
             script {
                 cleanWs()
             }
+        }
+    }
+}
+
+def copyLatestArtifact(String providerName, String projectName, Int lastBuildNumber, String target) {
+    for(int i = LastBuildNumber; i >= 0; i--) {
+        try {
+            copyArtifacts(
+                projectName: projectName,
+                filter: "${providerName}*.json",
+                selector: specific("${i}"),
+                target: target
+            );
+            break;
+        } catch(Exception e) {
+            echo "${providerName} not found in build #${i}"
         }
     }
 }
