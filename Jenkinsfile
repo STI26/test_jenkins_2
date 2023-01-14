@@ -28,7 +28,7 @@ pipeline {
 }
 
 def copyLatestArtifact(String providerName, String projectName, Integer lastBuildNumber, String target) {
-    for(int i = LastBuildNumber; i >= 0; i--) {
+    for(int i = lastBuildNumber; i >= 0; i--) {
         try {
             copyArtifacts(
                 projectName: projectName,
