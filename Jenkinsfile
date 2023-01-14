@@ -15,7 +15,8 @@ pipeline {
                           filter: "provider-2*.json",
                           target: 'all_json']);
 
-                    archiveArtifacts 'all_json'
+                    sh 'tar -czf all_json.tgz all_json/'
+                    archiveArtifacts 'all_json.tgz'
                 }
             }
         }
