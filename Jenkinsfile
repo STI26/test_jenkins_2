@@ -5,7 +5,7 @@ pipeline {
         stage('Collect artifacts') {
             steps {
                 script {
-                    buildNumber = Jenkins.instance.getItem('jobName').lastSuccessfulBuild.number
+                    buildNumber = Jenkins.instance.getItem('test_build').lastSuccessfulBuild.number
 
                     for(int i = buildNumber; i >= 0; i--) {
                         res = copyArtifacts(
