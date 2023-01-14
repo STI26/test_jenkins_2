@@ -5,12 +5,18 @@ pipeline {
         stage('Collect artifacts') {
             steps {
                 script {
-                    step ([$class: 'CopyArtifact',
-                          projectName: 'test_build',
-                          filter: "provider-1*.json",
-                          optional: true,
-                          selector: lastSuccessful(),
-                          target: 'all_json']);
+                    buildNumber = Jenkins.instance.getItem('jobName').lastSuccessfulBuild.number
+
+                    for(int i = buildNumber; i >= 0; i--) {
+                        res = copyArtifacts(
+                            projectName: 'test_build',
+                            filter: "provider-1*.json",
+                            selector: specific("${i}"),
+                            optional: true,
+                            target: 'all_json']
+                        );
+                        echo "result: ${res}"
+                    }
 
                     step ([$class: 'CopyArtifact',
                           projectName: 'test_build',
