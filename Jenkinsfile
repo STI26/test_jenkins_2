@@ -16,7 +16,7 @@ pipeline {
                                 target: 'all_json'
                             );
                             break;
-                        } catch {
+                        } catch(Exception e) {
                             echo "provider-1* not found in build #${i}"
                         }
                     }
@@ -30,7 +30,7 @@ pipeline {
                                 target: 'all_json'
                             );
                             break;
-                        } catch {
+                        } catch(Exception e) {
                             echo "provider-2* not found in build #${i}"
                         }
                     }
