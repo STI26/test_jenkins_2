@@ -13,6 +13,14 @@ pipeline {
 
                     sh 'tar -czf all_json.tgz all_json/'
                     archiveArtifacts 'all_json.tgz'
+
+                    app = 'provider-2'
+                    fileName = sh(
+                        script: "find lib/build/ -name ${app}*.json",
+                        returnStdout: true
+                    ).trim()
+
+                    archiveArtifacts fileName
                 }
             }
         }
