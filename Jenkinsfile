@@ -19,6 +19,8 @@ pipeline {
                         script: "find lib/build/ -name ${app}*.json",
                         returnStdout: true
                     ).trim()
+                    sh 'ls'
+                    sh 'pwd'
 
                     archiveArtifacts fileName
                 }
