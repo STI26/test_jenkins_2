@@ -9,7 +9,8 @@ pipeline {
         choice(
             name: 'SERVER',
             choices: SERVER_OPTIONS.keySet() as List,
-            description: 'Select server'
+            description: 'Select server',
+            defaultValue: 'develop'
         )
     }
     stages {
