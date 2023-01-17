@@ -1,6 +1,6 @@
 SERVER_OPTIONS = [
-    'Select':[],
     'develop': [ host_server: '123' ],
+    'Select':[],
 ]
 
 pipeline {
@@ -10,7 +10,6 @@ pipeline {
             name: 'SERVER',
             choices: SERVER_OPTIONS.keySet() as List,
             description: 'Select server',
-            defaultValue: 'develop'
         )
     }
     stages {
