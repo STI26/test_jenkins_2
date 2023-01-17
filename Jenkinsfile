@@ -1,6 +1,17 @@
+SERVER_OPTIONS = [
+    'Select':[],
+    'develop': [ host_server: '123' ],
+]
+
 pipeline {
     agent any
-
+    parameters {
+        choice(
+            name: 'SERVER',
+            choices: SERVER_OPTIONS.keySet() as List,
+            description: 'Select server'
+        )
+    }
     stages {
         stage('Collect artifacts') {
             steps {
